@@ -56,6 +56,13 @@ const ALL_DATA = [
   { id:"A06", cat:"aidx", cert:"fast.ai Practical Deep Learning", certFull:"fast.ai 實用深度學習", org:"fast.ai", focus:"「先建構，後理論。」600 萬+ 觀看。傳奇社群。", focusEn:"'Build first, theory later.' 6M+ views. Legendary community.", prereq:"Python 基礎", prereqEn:"Basic Python", cost:"免費", costVal:0, costNote:"完全免費。PyTorch 為基礎。", costNoteEn:"Completely free. PyTorch-based.", mode:"40小時影片課程。", modeEn:"40-hour video course.", tier:"advanced", priority:"elective", complianceTag:null, pathOrder:17, url:"https://course.fast.ai/", verified:"verified" },
   { id:"A07", cat:"aidx", cert:"Hugging Face LLM Course", certFull:"Hugging Face LLM 課程", org:"Hugging Face", focus:"開源 LLM 精通。微調 + 推理模型。", focusEn:"Open-source LLM mastery. Fine-tuning + reasoning models.", prereq:"Python + ML 基礎", prereqEn:"Python + ML basics", cost:"免費", costVal:0, costNote:"完全免費開源課程。", costNoteEn:"Completely free open-source.", mode:"40小時實作課程。", modeEn:"40-hour hands-on course.", tier:"advanced", priority:"elective", complianceTag:null, pathOrder:18, url:"https://huggingface.co/learn/llm-course/chapter1/1", verified:"verified" },
   { id:"A08", cat:"aidx", cert:"Hugging Face AI Agents Course", certFull:"Hugging Face AI 代理課程", org:"Hugging Face", focus:"使用開源工具建構 AI 代理。smolagents + LangGraph + MCP。", focusEn:"Build AI agents with open-source tools. smolagents + LangGraph + MCP.", prereq:"Python 中階 + LLM 基礎", prereqEn:"Intermediate Python + LLM basics", cost:"免費", costVal:0, costNote:"免費開源。含 MCP 協議。", costNoteEn:"Free open-source. Includes MCP protocol.", mode:"20小時實作課程。", modeEn:"20-hour hands-on course.", tier:"advanced", priority:"recommended", complianceTag:null, pathOrder:19, url:"https://huggingface.co/learn", verified:"verified" },
+  // ── Anthropic Academy (launched 2026-03-02) ──
+  { id:"AA01", cat:"aidx", cert:"Claude 101", certFull:"Claude 101 基礎", org:"Anthropic Academy", focus:"Claude 日常工作應用基礎。核心功能、實用場景與進階學習資源導覽。所有人的起點。", focusEn:"Claude for everyday work. Core features, practical use cases & learning resource navigation. Starting point for everyone.", prereq:"無經驗要求", prereqEn:"No experience required", cost:"免費（含證書）", costVal:0, costNote:"完全免費。完成後頒發 Anthropic 官方證書，可加入 LinkedIn。", costNoteEn:"Completely free. Anthropic official certificate on completion; LinkedIn-ready.", mode:"自學線上課程。", modeEn:"Self-paced online.", tier:"entry", priority:"baseline", complianceTag:null, pathOrder:20, url:"https://anthropic.skilljar.com/claude-101", verified:"verified" },
+  { id:"AA02", cat:"aidx", cert:"AI Fluency: Framework & Foundations", certFull:"AI 素養：框架與基礎", org:"Anthropic Academy", focus:"4D 框架（Delegation 委派、Description 描述、Discernment 辨識、Diligence 盡責）— 與 AI 系統有效、安全、負責任地協作。", focusEn:"4D Framework (Delegation, Description, Discernment, Diligence) — collaborate with AI systems effectively, safely & responsibly.", prereq:"無經驗要求", prereqEn:"No experience required", cost:"免費（含證書）", costVal:0, costNote:"免費。與 University College Cork 及 Ringling College 教授共同開發。Creative Commons 授權。", costNoteEn:"Free. Co-developed with UCC & Ringling College professors. Creative Commons licensed.", mode:"自學線上課程。", modeEn:"Self-paced online.", tier:"entry", priority:"baseline", complianceTag:null, pathOrder:21, url:"https://anthropic.skilljar.com/ai-fluency-framework-foundations", verified:"verified" },
+  { id:"AA03", cat:"aidx", cert:"Driving Enterprise Adoption of Claude", certFull:"推動企業 Claude 導入", org:"Anthropic Academy", focus:"企業內部 Claude 導入策略、變革管理與規模化部署。專為推動組織 AI 轉型的管理者設計。", focusEn:"Enterprise Claude adoption strategy, change management & scaled deployment. Designed for managers driving organizational AI transformation.", prereq:"管理職或 AI 推動角色", prereqEn:"Management or AI champion role", cost:"免費（含證書）", costVal:0, costNote:"免費。含 Train-the-Trainer 延伸課程。", costNoteEn:"Free. Includes Train-the-Trainer extension course.", mode:"自學線上課程。", modeEn:"Self-paced online.", tier:"mid", priority:"recommended", complianceTag:null, pathOrder:22, url:"https://anthropic.skilljar.com/driving-enterprise-adoption-of-claude", verified:"verified" },
+  { id:"AA04", cat:"aidx", cert:"Building with the Claude API", certFull:"使用 Claude API 開發", org:"Anthropic Academy", focus:"完整的 Claude API 開發課程 — 系統提示、工具使用、上下文窗口、架構模式與 AI 產品設計策略。超過 8 小時內容。", focusEn:"Comprehensive Claude API course — system prompts, tool use, context windows, architecture patterns & AI product design. 8+ hours.", prereq:"程式設計經驗", prereqEn:"Programming experience", cost:"免費（含證書）", costVal:0, costNote:"免費。涵蓋 API 基礎到生產部署。", costNoteEn:"Free. Covers API basics to production deployment.", mode:"8+ 小時實作課程。", modeEn:"8+ hour hands-on course.", tier:"mid", priority:"recommended", complianceTag:null, pathOrder:23, url:"https://anthropic.skilljar.com/claude-with-the-anthropic-api", verified:"verified" },
+  { id:"AA05", cat:"aidx", cert:"Introduction to MCP (Model Context Protocol)", certFull:"MCP 模型上下文協議入門", org:"Anthropic Academy", focus:"從零建構 MCP 伺服器與客戶端（Python）。掌握三大核心原語 — Tools、Resources、Prompts — 連接 Claude 與外部服務。", focusEn:"Build MCP servers & clients from scratch (Python). Master 3 core primitives — Tools, Resources, Prompts — connecting Claude to external services.", prereq:"Python 中階", prereqEn:"Intermediate Python", cost:"免費（含證書）", costVal:0, costNote:"免費。另有進階 MCP 課程（Advanced Topics）。", costNoteEn:"Free. Advanced MCP Topics course also available.", mode:"自學實作課程。", modeEn:"Self-paced hands-on.", tier:"advanced", priority:"recommended", complianceTag:null, pathOrder:24, url:"https://anthropic.skilljar.com/introduction-to-model-context-protocol", verified:"verified" },
+  { id:"AA06", cat:"aidx", cert:"Claude Code in Action", certFull:"Claude Code 實戰", org:"Anthropic Academy", focus:"將 Claude Code 整合到開發工作流程 — 命令列 AI 助手，直接在終端機進行程式碼生成、除錯與重構。", focusEn:"Integrate Claude Code into dev workflow — command-line AI assistant for code generation, debugging & refactoring directly in terminal.", prereq:"開發者，熟悉命令列", prereqEn:"Developer, comfortable with CLI", cost:"免費（含證書）", costVal:0, costNote:"免費。含 Agent Skills 與 Subagents 延伸課程。", costNoteEn:"Free. Agent Skills & Subagents extension courses available.", mode:"自學實作課程。", modeEn:"Self-paced hands-on.", tier:"advanced", priority:"recommended", complianceTag:null, pathOrder:25, url:"https://anthropic.skilljar.com/claude-code-in-action", verified:"verified" },
 ];
 
 /* ════════════════════════════════════════════════
@@ -95,6 +102,10 @@ const BENCHMARK = {
   I09: { companies:["Harvard","Top universities globally","Tech companies"], sectors:["Education","Technology","Research"], regionsEn:"Global", regionsZh:"全球", noteEn:"Part of Harvard's CS50 franchise — the most popular intro CS course worldwide.", noteZh:"Harvard CS50 系列的一部分 — 全球最受歡迎的計算機科學入門課程。" },
   A05: { companies:["OpenAI","Google","AWS","Meta","Cohere","Pinecone"], sectors:["AI/ML Engineering","Technology","Research"], regionsEn:"Global", regionsZh:"全球", noteEn:"50+ free short courses co-created with leading AI companies. Fastest way to learn cutting-edge techniques.", noteZh:"50+ 免費短課程，與頂尖 AI 公司共同創建。學習最前沿技術的最快途徑。" },
   A08: { companies:["Hugging Face","Open-source AI community"], sectors:["AI Engineering","Open Source","Research"], regionsEn:"Global", regionsZh:"全球", noteEn:"Covers MCP (Model Context Protocol) — the emerging standard for AI agent tool integration adopted by Anthropic.", noteZh:"涵蓋 MCP（模型上下文協議）— Anthropic 採用的 AI 代理工具整合新興標準。" },
+  AA01: { companies:["Anthropic","Enterprise clients globally"], sectors:["All Industries","Corporate Training"], regionsEn:"Global", regionsZh:"全球", noteEn:"Official Anthropic certification. Launched March 2026. Free with LinkedIn-ready certificate. Starting point for all Claude users.", noteZh:"Anthropic 官方認證。2026 年 3 月上線。免費含 LinkedIn 證書。所有 Claude 使用者的起點。" },
+  AA02: { companies:["Anthropic","University College Cork","Ringling College"], sectors:["Education","Corporate Training","All Industries"], regionsEn:"Global (Creative Commons licensed)", regionsZh:"全球（Creative Commons 授權）", noteEn:"Co-developed with academic institutions. 4D Framework adopted by universities worldwide. Higher Ed Advisory Board chaired by former Yale president Rick Levin.", noteZh:"與學術機構共同開發。4D 框架已被全球大學採用。高等教育顧問委員會由前耶魯大學校長 Rick Levin 主持。" },
+  AA03: { companies:["Anthropic enterprise clients","AWS (Bedrock)","Google Cloud (Vertex AI)"], sectors:["Enterprise IT","Management","Digital Transformation"], regionsEn:"Global", regionsZh:"全球", noteEn:"Designed for managers driving AI adoption. Includes Train-the-Trainer methodology. Claude Code annualized revenue hit $2.5B in 2026.", noteZh:"專為推動 AI 導入的管理者設計。含培訓師培訓方法論。Claude Code 2026 年年化營收達 25 億美元。" },
+  AA05: { companies:["Anthropic","MCP ecosystem adopters"], sectors:["AI Engineering","Platform Development","Automation"], regionsEn:"Global", regionsZh:"全球", noteEn:"MCP is Anthropic's open standard for AI-tool integration. Rapidly adopted across the AI developer ecosystem since late 2024.", noteZh:"MCP 是 Anthropic 的 AI 工具整合開放標準。自 2024 年底以來在 AI 開發者生態系統中迅速被採用。" },
 };
 
 const CAT_META = {
@@ -131,44 +142,44 @@ const ROLES = [
   { id:"coordinator", icon:Users, color:"#059669",
     zh:"管理師（詢問台/警勤/保全）", en:"Coordinator (Reception / Guard / Security)",
     descZh:"管理前線服務與安全人員，涵蓋詢問台接待、警勤巡邏與保全勤務，是最大宗的第一線角色。", descEn:"Manage frontline service & security staff — reception desk, guard patrol & security operations. The largest frontline role group.",
-    courses:["R4","G3","R1","R2","G1","G4","R3","S1","E01","E06","E08"],
-    phaseLabels:{ zh:["服務與門禁必修","衝突降級與專業","跨域共通語言","AI 入門"], en:["Service & Access Basics","De-escalation & Professional","Cross-domain Language","AI Entry"] },
-    phases:[ ["R4","G3","R1"], ["R2","G1","G4"], ["R3","S1"], ["E01","E06","E08"] ],
+    courses:["R4","G3","R1","R2","G1","G4","R3","S1","AA01","AA02","E01","E06","E08"],
+    phaseLabels:{ zh:["服務與門禁必修","衝突降級與專業","跨域共通語言","AI 素養與入門"], en:["Service & Access Basics","De-escalation & Professional","Cross-domain Language","AI Fluency & Entry"] },
+    phases:[ ["R4","G3","R1"], ["R2","G1","G4"], ["R3","S1"], ["AA01","AA02","E01","E06","E08"] ],
   },
   { id:"engineer_cc", icon:Monitor, color:"#7C3AED",
     zh:"工程師（中控）", en:"Engineer (Control Center)",
     descZh:"中控室值勤與系統維運，負責監控、警報處理、調度協調。年資從新進到資深不等，技術深度隨經驗成長。", descEn:"Control center duty & system operations — monitoring, alarm handling, dispatch coordination. Seniority ranges from junior to senior; technical depth grows with experience.",
-    courses:["C6","C7","C1","C3","C5","S1","G5","E01","E05","I01","I08"],
-    phaseLabels:{ zh:["操作與人因基礎","監控與網安融合","應變與調度","AI 應用與自動化"], en:["Operations & Ergonomics","Monitoring & Cyber-Physical","Response & Dispatch","AI Application & Automation"] },
-    phases:[ ["C6","C7"], ["C1","C3","C5"], ["S1","G5"], ["E01","E05","I01","I08"] ],
+    courses:["C6","C7","C1","C3","C5","S1","G5","AA01","E01","E05","I01","I08","AA04"],
+    phaseLabels:{ zh:["操作與人因基礎","監控與網安融合","應變與調度","AI 應用與 Claude 開發"], en:["Operations & Ergonomics","Monitoring & Cyber-Physical","Response & Dispatch","AI Application & Claude Dev"] },
+    phases:[ ["C6","C7"], ["C1","C3","C5"], ["S1","G5"], ["AA01","E01","E05","I01","I08","AA04"] ],
   },
   { id:"engineer_sp", icon:Wrench, color:"#0891B2",
     zh:"安全防護工程師", en:"Security Protection Engineer",
     descZh:"實體周邊安全系統的設計、安裝、調試與技術支援 — 涵蓋圍欄入侵探測、地震傳感器、防盜報警、門禁與監控系統。類似 DEA Security (義大利) 的現場工程師角色，需撰寫安全規範與技術文件。", descEn:"Design, install, commission & support physical perimeter security systems — fence intrusion detection, seismic sensors, burglar alarms, access control & surveillance. Similar to DEA Security (Italy) field engineer role. Authors security specs & technical documentation.",
-    courses:["S5","C1","C7","S8","S9","C3","S1","S2","E05","I02","I08","A05","A08"],
-    phaseLabels:{ zh:["防護系統設計與建置","網安融合與標準","風險評估與合規","AI 工程與自動化"], en:["Protection System Design","Cyber-Physical & Standards","Risk Assessment & Compliance","AI Engineering & Automation"] },
-    phases:[ ["S5","C1","C7","C3"], ["S8","S9"], ["S1","S2"], ["E05","I02","I08","A05","A08"] ],
+    courses:["S5","C1","C7","S8","S9","C3","S1","S2","AA01","E05","I02","I08","AA04","AA05","AA06","A05","A08"],
+    phaseLabels:{ zh:["防護系統設計與建置","網安融合與標準","風險評估與合規","AI 工程與 Claude 生態系"], en:["Protection System Design","Cyber-Physical & Standards","Risk Assessment & Compliance","AI Engineering & Claude Ecosystem"] },
+    phases:[ ["S5","C1","C7","C3"], ["S8","S9"], ["S1","S2"], ["AA01","E05","I02","I08","AA04","AA05","AA06","A05","A08"] ],
   },
   { id:"manager", icon:Star, color:"#F59E0B",
     zh:"理級主管", en:"Section Manager",
     descZh:"帶領前線、中控或工程團隊，負責排班管理、事件升級、績效考核與訓練督導。是處長與第一線之間的關鍵樞紐。", descEn:"Lead frontline, control center or engineering teams. Responsible for shift management, incident escalation, performance review & training supervision. Key hub between division head and frontline.",
-    courses:["G1","G3","C3","C4","R1","R3","S1","S2","G6","S3","E01","E06","I01","I04"],
-    phaseLabels:{ zh:["團隊管理基礎","品質治理與調度","戰略認知與持續營運","AI 領導力"], en:["Team Mgmt Basics","Quality Governance & Dispatch","Strategic & Business Continuity","AI Leadership"] },
-    phases:[ ["G1","G3","R1"], ["C3","C4","R3"], ["S1","S2","G6","S3"], ["E01","E06","I01","I04"] ],
+    courses:["G1","G3","C3","C4","R1","R3","S1","S2","G6","S3","AA01","AA02","AA03","E01","E06","I01","I04"],
+    phaseLabels:{ zh:["團隊管理基礎","品質治理與調度","戰略認知與持續營運","AI 領導力與組織導入"], en:["Team Mgmt Basics","Quality Governance & Dispatch","Strategic & Business Continuity","AI Leadership & Org Adoption"] },
+    phases:[ ["G1","G3","R1"], ["C3","C4","R3"], ["S1","S2","G6","S3"], ["AA01","AA02","AA03","E01","E06","I01","I04"] ],
   },
   { id:"secretary", icon:BookOpen, color:"#FB7185",
     zh:"處長秘書 / 行政", en:"Executive Secretary / Admin",
     descZh:"支援處長日常行政、會議管理、文件處理、跨單位溝通協調。是資訊流轉的關鍵節點，需具備基礎安全意識與高效 AI 工具應用能力。", descEn:"Support division head with admin, meeting management, document handling & cross-unit coordination. Key node for information flow; needs basic security awareness and efficient AI tool proficiency.",
-    courses:["R4","S1","R1","E01","E05","E06","E03","I01","I04"],
-    phaseLabels:{ zh:["安全意識基礎","溝通與應變語言","AI 生產力工具","AI 進階應用"], en:["Security Awareness","Communication & Response Language","AI Productivity Tools","Advanced AI Application"] },
-    phases:[ ["R4","R1"], ["S1"], ["E01","E05","E06","E03"], ["I01","I04"] ],
+    courses:["R4","S1","R1","AA01","AA02","E01","E05","E06","E03","I01","I04"],
+    phaseLabels:{ zh:["安全意識基礎","溝通與應變語言","AI 素養與生產力","AI 進階應用"], en:["Security Awareness","Communication & Response","AI Fluency & Productivity","Advanced AI Application"] },
+    phases:[ ["R4","R1"], ["S1"], ["AA01","AA02","E01","E05","E06","E03"], ["I01","I04"] ],
   },
   { id:"director", icon:Layers, color:"#DC2626",
     zh:"處長 / 副處長", en:"Division Head / Deputy",
     descZh:"部門戰略規劃、跨單位協調、預算資源配置、組織轉型與人才發展。唯一需要全域視野的角色。", descEn:"Division strategy, cross-unit coordination, budget allocation, organizational transformation & talent development. The only role requiring full-spectrum visibility.",
-    courses:["S2","S3","S4","S8","S7","S1","S6","E06","E03","E07"],
-    phaseLabels:{ zh:["戰略認證","營運持續與調查","產業合規與標準","AI 轉型視野"], en:["Strategic Certs","Continuity & Investigation","Industry Compliance","AI Transformation Vision"] },
-    phases:[ ["S2","S3","S4"], ["S7","S6"], ["S8","S1"], ["E06","E03","E07"] ],
+    courses:["S2","S3","S4","S8","S7","S1","S6","AA02","AA03","E06","E03","E07"],
+    phaseLabels:{ zh:["戰略認證","營運持續與調查","產業合規與標準","AI 轉型視野與組織導入"], en:["Strategic Certs","Continuity & Investigation","Industry Compliance","AI Vision & Org Adoption"] },
+    phases:[ ["S2","S3","S4"], ["S7","S6"], ["S8","S1"], ["AA02","AA03","E06","E03","E07"] ],
   },
 ];
 
@@ -491,8 +502,8 @@ export default function App() {
       </div>
 
       <div style={{padding:"12px 24px",borderTop:"1px solid var(--border)",textAlign:"center",fontSize:10,color:"var(--text-3)"}}>
-        {t("Security Training Explorer v5.0 · GSM / GPS · Verified 2026-03-25 · Incl. AI Pioneer Academy · Confirm costs with issuing bodies",
-           "企業安全訓練檢索 v5.0 · GSM / GPS · 查核日期 2026-03-25 · 含 AI 先鋒學院 · 費用請以各發證機構官方為準")}
+        {t("Security Training Explorer v7.0 · GSM / GPS · 2026-03-26 · Incl. AI Pioneer Academy + Anthropic Academy",
+           "企業安全訓練檢索 v7.0 · GSM / GPS · 2026-03-26 · 含 AI 先鋒學院 + Anthropic Academy")}
       </div>
     </div>
   );
