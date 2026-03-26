@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { Search, Filter, ChevronDown, ChevronUp, Moon, Sun, Globe, X, DollarSign, Briefcase, BookOpen, Award, Shield, Monitor, Users, Layers, AlertTriangle, TrendingUp, BarChart3, CheckCircle2, Star, Zap, ExternalLink, AlertCircle, CheckCircle, HelpCircle, Building2 } from "lucide-react";
+import { Search, Filter, ChevronDown, ChevronUp, Moon, Sun, Globe, X, DollarSign, Briefcase, BookOpen, Award, Shield, Monitor, Users, Layers, AlertTriangle, TrendingUp, BarChart3, CheckCircle2, Star, Zap, ExternalLink, AlertCircle, CheckCircle, HelpCircle, Building2, Wrench, UserCircle } from "lucide-react";
 
 /* ════════════════════════════════════════════════
    DATA: 26 certs with verified URLs & status
@@ -123,6 +123,55 @@ const COST_RANGES = [
   { key:"high", zh:"> $2,000",   en:"> $2,000",     test:v=>v>2000 },
 ];
 
+/* ════════════════════════════════════════════════
+   ROLES: GPS positions × AI maturity cross-paths
+   Each role has a curated cross-track learning path
+   ════════════════════════════════════════════════ */
+const ROLES = [
+  { id:"officer", icon:Shield, color:"#059669",
+    zh:"保全員", en:"Security Officer",
+    descZh:"第一線巡邏、門禁管制、訪客接待與基礎安全維護。", descEn:"Frontline patrol, access control, visitor reception & basic security.",
+    courses:["G3","R4","G1","R1","R2","G4","S1","E01","E06","E08"],
+    phaseLabels:{ zh:["必修基礎","專業提升","跨域語言","AI 入門"], en:["Required Basics","Professional Growth","Cross-domain Language","AI Entry"] },
+    phases:[ ["G3","R4"], ["G1","R1","R2"], ["G4","S1"], ["E01","E06","E08"] ],
+  },
+  { id:"operator", icon:Monitor, color:"#7C3AED",
+    zh:"中控操作員", en:"Control Room Operator",
+    descZh:"監控中心值勤、警報處理、調度協調與系統操作。", descEn:"SOC monitoring, alarm handling, dispatch coordination & system operation.",
+    courses:["C6","C7","C1","C3","C5","S1","G5","E01","E05","I01"],
+    phaseLabels:{ zh:["操作基礎","監控專業","應變能力","AI 應用"], en:["Operations Basics","Monitoring Expertise","Response Capability","AI Application"] },
+    phases:[ ["C6","C7"], ["C1","C3","C5"], ["S1","G5"], ["E01","E05","I01"] ],
+  },
+  { id:"engineer", icon:Wrench, color:"#0891B2",
+    zh:"安全防護工程師", en:"Security Protection Engineer",
+    descZh:"設計與維護安全防護系統（門禁、監控、入侵偵測），撰寫安全規範與技術文件。", descEn:"Design & maintain security systems (access control, surveillance, intrusion detection), author security specs & technical docs.",
+    courses:["S5","C1","C7","S8","S9","S1","S2","I02","I08","A05","A08","I04"],
+    phaseLabels:{ zh:["系統設計","網安融合","標準合規","AI 工程"], en:["System Design","Cyber-Physical","Standards & Compliance","AI Engineering"] },
+    phases:[ ["S5","C1","C7"], ["S8","S9"], ["S1","S2"], ["I02","I08","A05","A08","I04"] ],
+  },
+  { id:"supervisor", icon:Users, color:"#F59E0B",
+    zh:"保全/中控主管", en:"Security / SOC Supervisor",
+    descZh:"帶領前線與中控團隊，排班管理，事件升級與訓練督導。", descEn:"Lead frontline & SOC teams, shift management, incident escalation & training supervision.",
+    courses:["G1","G3","C3","C4","R1","R3","S1","S2","G6","E01","E06","I01"],
+    phaseLabels:{ zh:["團隊管理基礎","品質與調度","戰略認知","AI 領導力"], en:["Team Mgmt Basics","Quality & Dispatch","Strategic Awareness","AI Leadership"] },
+    phases:[ ["G1","G3","R1"], ["C3","C4","R3"], ["S1","S2","G6"], ["E01","E06","I01"] ],
+  },
+  { id:"specialist", icon:Briefcase, color:"#A78BFA",
+    zh:"管理師 / 專員", en:"Specialist / Analyst",
+    descZh:"安全政策制定、風險評估、合規稽核、供應鏈安全管理與專案管理。", descEn:"Security policy, risk assessment, compliance audit, supply chain security & project management.",
+    courses:["S1","S2","S3","S5","S6","S8","C1","E06","E03","I01","I04"],
+    phaseLabels:{ zh:["風險與合規","專業深化","產業標準","AI 策略"], en:["Risk & Compliance","Professional Depth","Industry Standards","AI Strategy"] },
+    phases:[ ["S1","S2","S3"], ["S5","S6","C1"], ["S8"], ["E06","E03","I01","I04"] ],
+  },
+  { id:"director", icon:Layers, color:"#DC2626",
+    zh:"處長 / 副處長", en:"Division Head / Deputy",
+    descZh:"部門戰略規劃、跨單位協調、預算資源配置與組織轉型。", descEn:"Division strategy, cross-unit coordination, budget allocation & organizational transformation.",
+    courses:["S2","S3","S4","S8","S7","S1","E06","E03","E07"],
+    phaseLabels:{ zh:["戰略認證","營運持續","產業合規","AI 轉型視野"], en:["Strategic Certs","Business Continuity","Industry Compliance","AI Transformation"] },
+    phases:[ ["S2","S3","S4"], ["S7","S1"], ["S8"], ["E06","E03","E07"] ],
+  },
+];
+
 export default function App() {
   const [lang, setLang] = useState("zh");
   const [theme, setTheme] = useState("dark");
@@ -134,6 +183,7 @@ export default function App() {
   const [expanded, setExpanded] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
   const [view, setView] = useState("cards");
+  const [activeRole, setActiveRole] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   useEffect(() => { const h = () => setIsMobile(window.innerWidth < 768); window.addEventListener("resize", h); return () => window.removeEventListener("resize", h); }, []);
   const t = useCallback((en, zh) => lang === "zh" ? zh : en, [lang]);
@@ -145,7 +195,9 @@ export default function App() {
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
+    const roleObj = ROLES.find(r=>r.id===activeRole);
     return ALL_DATA.filter(item => {
+      if (roleObj && !roleObj.courses.includes(item.id)) return false;
       if (catFilter.length && !catFilter.includes(item.cat)) return false;
       if (tierFilter.length && !tierFilter.includes(item.tier)) return false;
       if (prioFilter.length && !prioFilter.includes(item.priority)) return false;
@@ -153,11 +205,11 @@ export default function App() {
       if (q) { return [item.cert,item.certFull,item.org,item.focus,item.focusEn,item.prereq,item.prereqEn,item.cost,item.complianceTag||""].join(" ").toLowerCase().includes(q); }
       return true;
     });
-  }, [search, catFilter, tierFilter, costFilter, prioFilter]);
+  }, [search, catFilter, tierFilter, costFilter, prioFilter, activeRole]);
 
   const activeFilterCount = catFilter.length + tierFilter.length + costFilter.length + prioFilter.length;
   const toggle = (arr, set, val) => set(p => p.includes(val) ? p.filter(v => v !== val) : [...p, val]);
-  const clearAll = () => { setCatFilter([]); setTierFilter([]); setCostFilter([]); setPrioFilter([]); setSearch(""); };
+  const clearAll = () => { setCatFilter([]); setTierFilter([]); setCostFilter([]); setPrioFilter([]); setSearch(""); setActiveRole(null); };
 
   const stats = useMemo(() => {
     const byCat = {}; Object.keys(CAT_META).forEach(k => { byCat[k] = { total:0, mandatory:0, baseline:0, estimated:0 }; });
@@ -190,8 +242,27 @@ export default function App() {
 
         {/* View tabs */}
         <div style={{ display:"flex",gap:2,marginTop:12,background:"var(--surface-2)",borderRadius:7,padding:2,width:"fit-content" }}>
-          {[{k:"cards",zh:"認證檢索",en:"Certs",icon:Search},{k:"benchmark",zh:"業界採用",en:"Benchmark",icon:Building2},{k:"dashboard",zh:"預算總覽",en:"Budget",icon:BarChart3},{k:"path",zh:"學習路徑",en:"Paths",icon:TrendingUp}].map(v => {const VI=v.icon;return(<button key={v.k} onClick={()=>setView(v.k)} style={{ display:"flex",alignItems:"center",gap:4,padding:"5px 12px",borderRadius:5,border:"none",cursor:"pointer",fontSize:11,fontWeight:view===v.k?600:400,background:view===v.k?"var(--accent)":"transparent",color:view===v.k?"#fff":"var(--text-3)" }}><VI size={12}/>{t(v.en,v.zh)}</button>)})}
+          {[{k:"cards",zh:"認證檢索",en:"Certs",icon:Search},{k:"roles",zh:"角色路徑",en:"Role Paths",icon:UserCircle},{k:"benchmark",zh:"業界採用",en:"Benchmark",icon:Building2},{k:"dashboard",zh:"預算總覽",en:"Budget",icon:BarChart3},{k:"path",zh:"軌道總覽",en:"Tracks",icon:TrendingUp}].map(v => {const VI=v.icon;return(<button key={v.k} onClick={()=>setView(v.k)} style={{ display:"flex",alignItems:"center",gap:4,padding:"5px 12px",borderRadius:5,border:"none",cursor:"pointer",fontSize:11,fontWeight:view===v.k?600:400,background:view===v.k?"var(--accent)":"transparent",color:view===v.k?"#fff":"var(--text-3)" }}><VI size={12}/>{t(v.en,v.zh)}</button>)})}
         </div>
+
+        {/* Role Quick Lane */}
+        {(view==="cards"||view==="roles")&&<div style={{marginTop:10}}>
+          <div style={{fontSize:10,fontWeight:600,color:"var(--text-3)",marginBottom:5,textTransform:"uppercase",letterSpacing:"0.05em",display:"flex",alignItems:"center",gap:4}}><UserCircle size={11}/>{t("Quick Lane: I am a...","快速通道：我的職位是...")}</div>
+          <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
+            {ROLES.map(r=>{const RI=r.icon;const isActive=activeRole===r.id;return(
+              <button key={r.id} onClick={()=>{setActiveRole(isActive?null:r.id);if(!isActive&&view==="cards"){}}} style={{
+                display:"flex",alignItems:"center",gap:5,padding:"6px 12px",borderRadius:8,cursor:"pointer",
+                border:isActive?`1.5px solid ${r.color}`:"1px solid var(--border)",
+                background:isActive?`${r.color}12`:"var(--surface)",
+                color:isActive?r.color:"var(--text-2)",fontSize:11,fontWeight:isActive?600:400,transition:"all 0.12s",
+              }}><RI size={13}/>{t(r.en,r.zh)}<span style={{fontSize:9,color:"var(--text-3)"}}>{r.courses.length}</span></button>
+            )})}
+            {activeRole&&<button onClick={()=>setActiveRole(null)} style={{padding:"6px 10px",borderRadius:8,border:"1px solid var(--border)",background:"transparent",color:"var(--text-3)",fontSize:11,cursor:"pointer"}}><X size={11}/></button>}
+          </div>
+          {activeRole&&<div style={{fontSize:11,color:ROLES.find(r=>r.id===activeRole)?.color,marginTop:4,lineHeight:1.5}}>
+            {t(ROLES.find(r=>r.id===activeRole)?.descEn,ROLES.find(r=>r.id===activeRole)?.descZh)} · {ROLES.find(r=>r.id===activeRole)?.courses.length} {t("recommended items","項推薦")}
+          </div>}
+        </div>}
 
         {/* Search + Filters */}
         {view==="cards"&&<>
@@ -216,6 +287,76 @@ export default function App() {
       </div>
 
       <div style={{ padding:isMobile?"10px 16px 16px":"14px 24px 24px" }}>
+
+        {/* Role Paths */}
+        {view==="roles"&&<div>
+          {!activeRole && <div style={{textAlign:"center",padding:isMobile?24:40}}>
+            <UserCircle size={36} style={{margin:"0 auto 12px",color:"var(--text-3)",opacity:0.4}}/>
+            <div style={{fontSize:15,fontWeight:600,marginBottom:6}}>{t("Select a role above to see your personalized cross-track learning path","請在上方選擇你的職位，查看跨軌道個人化學習路徑")}</div>
+            <div style={{fontSize:12,color:"var(--text-3)",lineHeight:1.6,maxWidth:500,margin:"0 auto"}}>{t("Each role maps a recommended progression across security certifications AND AI courses — designed for IDP discussions with your supervisor.","每個角色都映射一條跨越安全認證與 AI 課程的推薦進程 — 專為與主管的 IDP（個人發展計畫）討論設計。")}</div>
+          </div>}
+          {activeRole && (()=>{
+            const role = ROLES.find(r=>r.id===activeRole);
+            const RI = role.icon;
+            return (
+              <div>
+                <div style={{background:"var(--surface)",borderRadius:10,border:`1.5px solid ${role.color}30`,padding:isMobile?14:18,marginBottom:14,display:"flex",alignItems:"center",gap:14}}>
+                  <div style={{width:44,height:44,borderRadius:10,background:`${role.color}14`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><RI size={22} style={{color:role.color}}/></div>
+                  <div style={{flex:1}}>
+                    <div style={{fontSize:17,fontWeight:700,color:role.color}}>{t(role.en,role.zh)}</div>
+                    <div style={{fontSize:12,color:"var(--text-2)",lineHeight:1.5,marginTop:2}}>{t(role.descEn,role.descZh)}</div>
+                    <div style={{fontSize:11,color:"var(--text-3)",marginTop:3}}>{role.courses.length} {t("items across","項，跨越")} {new Set(role.courses.map(id=>ALL_DATA.find(d=>d.id===id)?.cat).filter(Boolean)).size} {t("tracks","個軌道")}</div>
+                  </div>
+                </div>
+                {role.phases.map((phase, pi) => {
+                  const items = phase.map(id=>ALL_DATA.find(d=>d.id===id)).filter(Boolean);
+                  const phaseLabel = t(role.phaseLabels.en[pi], role.phaseLabels.zh[pi]);
+                  return (
+                    <div key={pi} style={{marginBottom:14}}>
+                      <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8}}>
+                        <div style={{width:26,height:26,borderRadius:13,background:`${role.color}18`,border:`2px solid ${role.color}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:700,color:role.color,flexShrink:0}}>{pi+1}</div>
+                        <div style={{fontSize:13,fontWeight:700,color:role.color}}>{phaseLabel}</div>
+                        <div style={{flex:1,height:1,background:"var(--border)"}}/>
+                        <div style={{fontSize:10,color:"var(--text-3)"}}>{items.length} {t("items","項")}</div>
+                      </div>
+                      <div style={{marginLeft:13,borderLeft:`2px solid ${pi<role.phases.length-1?"var(--border)":"transparent"}`,paddingLeft:20,paddingBottom:pi<role.phases.length-1?8:0}}>
+                        <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr",gap:6}}>
+                          {items.map(item=>{
+                            const catM=CAT_META[item.cat];const CI=catM.icon;const tM=TIER_META[item.tier];
+                            return(
+                              <div key={item.id} style={{background:"var(--surface)",borderRadius:8,border:"1px solid var(--border)",padding:12,display:"flex",gap:10,alignItems:"flex-start"}}>
+                                <div style={{width:26,height:26,borderRadius:6,background:`${catM.color}12`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><CI size={13} style={{color:catM.color}}/></div>
+                                <div style={{flex:1,minWidth:0}}>
+                                  <div style={{display:"flex",alignItems:"center",gap:4,flexWrap:"wrap"}}>
+                                    <span style={{fontSize:12,fontWeight:600}}>{item.cert}</span>
+                                    <Badge color={catM.color} small>{t(catM.en.split("/")[0].trim().split(" ")[0],catM.zh.substring(0,3))}</Badge>
+                                    <Badge color={tM.color} small>{t(tM.en,tM.zh)}</Badge>
+                                  </div>
+                                  <div style={{fontSize:10,color:"var(--text-2)",marginTop:2,lineHeight:1.5}}>{item.org} · {item.cost}</div>
+                                  {item.url&&item.url!=="#"&&<a href={item.url} target="_blank" rel="noopener noreferrer" style={{fontSize:10,color:"var(--accent)",textDecoration:"none",display:"inline-flex",alignItems:"center",gap:2,marginTop:3}}><ExternalLink size={9}/>{t("Official","官方")}</a>}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                <div style={{background:"var(--surface)",borderRadius:8,border:"1px solid var(--border)",padding:14,marginTop:8}}>
+                  <div style={{fontSize:11,fontWeight:600,color:"var(--text-3)",marginBottom:8,textTransform:"uppercase",letterSpacing:"0.04em"}}>{t("Path Summary","路徑摘要")}</div>
+                  <div style={{display:"flex",gap:12,flexWrap:"wrap",fontSize:12}}>
+                    <span><strong style={{color:"var(--accent)"}}>{role.courses.length}</strong> {t("total items","項總計")}</span>
+                    <span><strong style={{color:"#10B981"}}>{role.courses.filter(id=>{const d=ALL_DATA.find(x=>x.id===id);return d?.costVal===0}).length}</strong> {t("free","免費")}</span>
+                    <span><strong style={{color:"#F59E0B"}}>${role.courses.reduce((s,id)=>{const d=ALL_DATA.find(x=>x.id===id);return s+(d?.costVal||0)},0).toLocaleString()}</strong> {t("est. total","預估總費用")}</span>
+                    {(()=>{const tracks=new Set(role.courses.map(id=>ALL_DATA.find(d=>d.id===id)?.cat).filter(Boolean));return <span><strong style={{color:role.color}}>{tracks.size}</strong> {t("tracks","軌道")}</span>})()}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+        </div>}
+
         {/* Benchmark */}
         {view==="benchmark"&&<div>
           <p style={{fontSize:12,color:"var(--text-2)",marginBottom:14,lineHeight:1.6}}>{t("Industry adoption and recognition benchmarks for each certification. Data compiled from official sources, job postings, and industry reports.","各認證的業界採用與認可基準。資料彙編自官方來源、職缺公告與產業報告。")}</p>
