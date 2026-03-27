@@ -162,20 +162,20 @@ const ROLES = [
   },
   { id:"manager", icon:Star, color:"#F59E0B",
     zh:"理級主管", en:"Section Manager",
-    descZh:"帶領前線、中控或工程團隊，負責排班管理、事件升級、績效考核與訓練督導。是處長與第一線之間的關鍵樞紐。", descEn:"Lead frontline, control center or engineering teams. Responsible for shift management, incident escalation, performance review & training supervision. Key hub between division head and frontline.",
+    descZh:"帶領前線、中控或工程團隊，負責排班管理、事件升級、績效考核與訓練督導。是部門負責人與第一線之間的關鍵樞紐。", descEn:"Lead frontline, control center or engineering teams. Responsible for shift management, incident escalation, performance review & training supervision. Key hub between department head and frontline.",
     courses:["G1","G3","C3","C4","R1","R3","S1","S2","G6","S3","AA01","AA02","AA03","E01","E06","I01","I04"],
     phaseLabels:{ zh:["團隊管理基礎","品質治理與調度","戰略認知與持續營運","AI 領導力與組織導入"], en:["Team Mgmt Basics","Quality Governance & Dispatch","Strategic & Business Continuity","AI Leadership & Org Adoption"] },
     phases:[ ["G1","G3","R1"], ["C3","C4","R3"], ["S1","S2","G6","S3"], ["AA01","AA02","AA03","E01","E06","I01","I04"] ],
   },
   { id:"secretary", icon:BookOpen, color:"#FB7185",
-    zh:"處長秘書 / 行政", en:"Executive Secretary / Admin",
-    descZh:"支援處長日常行政、會議管理、文件處理、跨單位溝通協調。是資訊流轉的關鍵節點，需具備基礎安全意識與高效 AI 工具應用能力。", descEn:"Support division head with admin, meeting management, document handling & cross-unit coordination. Key node for information flow; needs basic security awareness and efficient AI tool proficiency.",
+    zh:"部門秘書 / 行政", en:"Department Secretary / Admin",
+    descZh:"支援部門負責人日常行政、會議管理、文件處理、跨單位溝通協調。是資訊流轉的關鍵節點，需具備基礎安全意識與高效 AI 工具應用能力。", descEn:"Support department head with admin, meeting management, document handling & cross-unit coordination. Key node for information flow; needs basic security awareness and efficient AI tool proficiency.",
     courses:["R4","S1","R1","AA01","AA02","E01","E05","E06","E03","I01","I04"],
     phaseLabels:{ zh:["安全意識基礎","溝通與應變語言","AI 素養與生產力","AI 進階應用"], en:["Security Awareness","Communication & Response","AI Fluency & Productivity","Advanced AI Application"] },
     phases:[ ["R4","R1"], ["S1"], ["AA01","AA02","E01","E05","E06","E03"], ["I01","I04"] ],
   },
   { id:"director", icon:Layers, color:"#DC2626",
-    zh:"處長 / 副處長", en:"Division Head / Deputy",
+    zh:"部門負責人", en:"Department Head",
     descZh:"部門戰略規劃、跨單位協調、預算資源配置、組織轉型與人才發展。唯一需要全域視野的角色。", descEn:"Division strategy, cross-unit coordination, budget allocation, organizational transformation & talent development. The only role requiring full-spectrum visibility.",
     courses:["S2","S3","S4","S8","S7","S1","S6","AA02","AA03","E06","E03","E07"],
     phaseLabels:{ zh:["戰略認證","營運持續與調查","產業合規與標準","AI 轉型視野與組織導入"], en:["Strategic Certs","Continuity & Investigation","Industry Compliance","AI Vision & Org Adoption"] },
@@ -242,7 +242,7 @@ export default function App() {
       <div style={{ background:"var(--surface)", borderBottom:"1px solid var(--border)", padding:isMobile?"14px 16px":"18px 24px" }}>
         <div style={{ display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:10,flexWrap:"wrap" }}>
           <div style={{ flex:1,minWidth:200 }}>
-            <div style={{ display:"flex",alignItems:"center",gap:8 }}><div style={{ width:5,height:22,borderRadius:3,background:"var(--accent)" }}/><h1 style={{ fontSize:isMobile?16:20,fontWeight:700,margin:0 }}>{t("Security Training Explorer","企業安全防護訓練檢索")}</h1></div>
+            <div style={{ display:"flex",alignItems:"center",gap:8 }}><div style={{ width:5,height:22,borderRadius:3,background:"var(--accent)" }}/><h1 style={{ fontSize:isMobile?16:20,fontWeight:700,margin:0 }}>{t("Security Training Explorer","全球實體安全訓練檢索")}</h1></div>
             <p style={{ fontSize:11,color:"var(--text-3)",margin:"4px 0 0 13px" }}>GSM / GPS · {t(`${ALL_DATA.length} items · 5 tracks incl. AI Pioneer Academy · Fact-checked`,`${ALL_DATA.length} 項 · 5 大軌道含 AI 先鋒學院 · 已查核`)} · <span style={{color:"#10B981"}}>{stats.verified} {t("verified","已驗證")}</span> · <span style={{color:"#F59E0B"}}>{stats.partial} {t("partial","部分")}</span> · <span style={{color:"#EF4444"}}>{stats.unverifiable} {t("unverifiable","待確認")}</span></p>
           </div>
           <div style={{ display:"flex",gap:4 }}>
@@ -506,7 +506,7 @@ export default function App() {
 
       <div style={{padding:"12px 24px",borderTop:"1px solid var(--border)",textAlign:"center",fontSize:10,color:"var(--text-3)"}}>
         {t("Security Training Explorer v7.1 · GSM / GPS · 2026-03-26 · Role feedback applied",
-           "企業安全訓練檢索 v7.1 · GSM / GPS · 2026-03-26 · 已納入各角色回饋")}
+           "全球實體安全訓練檢索 v7.1 · GSM / GPS · 2026-03-26 · 已納入各角色回饋")}
       </div>
     </div>
   );
